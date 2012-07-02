@@ -1,6 +1,6 @@
 <?php
 
-abstract class SiteTreeCMSWFDecorator extends DataObjectDecorator {
+abstract class SiteTreeCMSWFDecorator extends DataExtension {
 	abstract function canDenyRequests();
 	abstract function canRequestEdit();
 	abstract function whoCanApprove();

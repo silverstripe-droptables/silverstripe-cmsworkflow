@@ -8,13 +8,13 @@ class BatchSetExpiry extends CMSBatchAction {
 		return _t('BatchSetExpiry.DOING_TEXT', 'Setting expiry date');
 	}
 
-	function run(DataObjectSet $pages) {
+	function run(SS_List $objs) {
 		$datefield = Object::create('DatetimeField', 'EmbargoDate_Batch');
 		$datefield->setValue($_REQUEST['ExpiryDate_Batch']);
 		
 		$date = date('d/m/Y', strtotime($datefield->dataValue()));
 		$time = date('h:i a', strtotime($datefield->dataValue()));
-		return $this->batchaction($pages, 'setExpiry',
+		return $this->batchaction($objs, 'setExpiry',
 			_t('BatchSetExpiry.ACTIONED_PAGES', 'Set expiry date on %d pages, %d failures'),
 		array($date, $time));
 	}

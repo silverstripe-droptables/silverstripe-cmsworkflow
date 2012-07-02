@@ -124,7 +124,7 @@ class ApprovedPublications3StepReport extends SS_Report {
 		
 		return $params;
 	}
-	function canView() {
+	function canView($member = null) {
 		return Object::has_extension('SiteTree', 'SiteTreeCMSThreeStepWorkflow');
 	}
 	

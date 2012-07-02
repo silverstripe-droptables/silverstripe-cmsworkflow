@@ -3,8 +3,8 @@
 class WorkflowSystemMember extends Member {
 	static $db = array();
 	
-	static function get() {
-		return DataObject::get_one('WorkflowSystemMember');
+	public static function get_one($callerClass, $filter = "", $cache = true, $orderby = "") {
+		return DataObject::get_one('WorkflowSystemMember', $filter = "", $cache = true, $orderby = "");
 	}
 	
 	function requireDefaultRecords() {

@@ -1,7 +1,7 @@
 <?php
 
-class SiteConfigTwoStepWorkflow extends DataObjectDecorator {
-	public function extraStatics() {
+class SiteConfigTwoStepWorkflow extends DataExtension {
+	function extraStatics($class = null, $extension = null) {
 		return array(
 			'db' => array(
 				"CanPublishType" =>"Enum('LoggedInUsers, OnlyTheseUsers', 'OnlyTheseUsers')"
@@ -21,7 +21,7 @@ class SiteConfigTwoStepWorkflow extends DataObjectDecorator {
 	 * @param FieldSet $fields 
 	 * @return void
 	 */
-	function updateCMSFields(&$fields) {
+	function updateCMSFields(FieldList $fields) {
 		$fields->addFieldsToTab("Root.Access", array(
 			new HeaderField(_t('SiteConfigCMSWorkflow.PUBLISHAPPROVEDHEADER', "Who can publish requests inside the CMS?"), 2),
 			$actionTypeField = new OptionsetField(

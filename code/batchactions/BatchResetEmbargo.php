@@ -8,8 +8,8 @@ class BatchResetEmbargo extends CMSBatchAction {
 		return _t('BatchResetEmbargo.DOING_TEXT', 'Resetting embargo date');
 	}
 
-	function run(DataObjectSet $pages) {
-		return $this->batchaction($pages, 'resetEmbargo',
+	function run(SS_List $objs) {
+		return $this->batchaction($objs, 'resetEmbargo',
 			_t('BatchResetEmbargo.ACTIONED_PAGES', 'Reset embargo date on %d pages, %d failures'));
 	}
 

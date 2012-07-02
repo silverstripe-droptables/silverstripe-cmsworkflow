@@ -719,7 +719,7 @@ class WorkflowRequest extends DataObject implements i18nEntityProvider {
 	 * @param array $status One or more stati from the $Status property
 	 * @return DataObjectSet
 	 */
-	public static function get($class, $status = null) {
+	public static function get_by_status($class, $status = null) {
 		$bt = defined('DB::USE_ANSI_SQL') ? "\"" : "`";
 
 		if($status) $statusStr = implode(',', $status);
@@ -782,8 +782,8 @@ class WorkflowRequest extends DataObject implements i18nEntityProvider {
 		}
 	}
 	
-	function fieldLabels() {
-		$labels = parent::fieldLabels();
+	public function fieldLabels($includerelations = true) {
+		$labels = parent::fieldLabels($includerelations);
 		
 		$labels['Status'] = _t('SiteTreeCMSWorkflow.FIELDLABEL_STATUS', "Status");
 		$labels['Author'] = _t('SiteTreeCMSWorkflow.FIELDLABEL_AUTHOR', "Author");

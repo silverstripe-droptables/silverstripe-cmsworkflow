@@ -2,9 +2,9 @@
 /**
  * @package cmsworkflow
  */
-class WorkflowMemberRole extends DataObjectDecorator {
+class WorkflowMemberRole extends DataExtension {
 	
-	function extraStatics() {
+	function extraStatics($class = null, $extension = null) {
 		return array(
 			'has_many' => array(
 				'AuthoredPublicationRequests' => 'WorkflowPublicationRequest',
@@ -17,11 +17,10 @@ class WorkflowMemberRole extends DataObjectDecorator {
 		);
 	}
 	
-	function updateCMSFields(&$fields) {
+	function updateCMSFields(FieldList $fields) {
 		$fields->removeByName('AuthoredPublicationRequests');
 		$fields->removeByName('AuthoredDeletionRequests');
 		$fields->removeByName('PublicationRequests');
 		$fields->removeByName('DeletionRequests');
 	}
 }
-?>

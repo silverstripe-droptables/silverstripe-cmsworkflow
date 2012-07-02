@@ -3,7 +3,7 @@
 /**
  * Extension that modifies SiteTree data requests to return future state contnet.
  */
-class SiteTreeFutureState extends DataObjectDecorator {
+class SiteTreeFutureState extends DataExtension {
 	/**
 	 * Set the future datetime to view
 	 */
@@ -199,7 +199,7 @@ class SiteTreeFutureState extends DataObjectDecorator {
 class SiteTreeFutureState_SilverStripeNavigatorItem extends SilverStripeNavigatorItem {
 	static $priority = 50;
 	
-	function getHTML($page) {
+	function getHTML() {
 		Requirements::css('cmsworkflow/css/FutureStateNavigatorItem.css');
 		Requirements::javascript(THIRDPARTY_DIR .'/jquery/jquery.js');
 		Requirements::javascript(THIRDPARTY_DIR .'/jquery-livequery/jquery.livequery.js');
@@ -216,7 +216,7 @@ class SiteTreeFutureState_SilverStripeNavigatorItem extends SilverStripeNavigato
 		}
 		
 		$data = new ArrayData(array(
-			'Page' => $page,
+			'Page' => $this->record,
 			'DateTimeField' => $datetimeField,
 			'Current' => (bool)$datetime,
 		));
@@ -224,7 +224,7 @@ class SiteTreeFutureState_SilverStripeNavigatorItem extends SilverStripeNavigato
 		return $data->renderWith(array('FutureStateNavigatorItem'));
 	}
 	
-	function getMessage($page) {
+	function getMessage() {
 		if($date = SiteTreeFutureState::get_future_datetime()) {
 			$dateObj = Object::create('Datetime');
 			$dateObj->setValue($date);
@@ -233,9 +233,9 @@ class SiteTreeFutureState_SilverStripeNavigatorItem extends SilverStripeNavigato
 		}
 	}
 	
-	function getLink($page) {
+	function getLink() {
 		if($date = SiteTreeFutureState::get_future_datetime()) {
-			return $page->AbsoluteLink() . '?futureDate=' . $date;
+			return $this->record->AbsoluteLink() . '?futureDate=' . $date;
 		}
 	}	
 }

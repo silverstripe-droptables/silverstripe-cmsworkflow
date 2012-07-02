@@ -46,7 +46,7 @@ class ThreeStepMyPublicationRequestsSideReport extends SS_Report {
 			),
 		);
 	}
-	function canView() {
+	function canView($member = null) {
 		return Object::has_extension('SiteTree', 'SiteTreeCMSThreeStepWorkflow');
 	}
 }

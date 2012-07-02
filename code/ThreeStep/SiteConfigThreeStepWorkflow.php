@@ -1,6 +1,6 @@
 <?php
 
-class SiteConfigThreeStepWorkflow extends DataObjectDecorator {
+class SiteConfigThreeStepWorkflow extends DataExtension {
 	public function extraStatics() {
 		return array(
 			'db' => array(

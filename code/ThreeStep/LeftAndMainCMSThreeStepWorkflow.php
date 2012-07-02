@@ -6,7 +6,7 @@
  * @package cmsworkflow
  * @subpackage ThreeStep
  */
-class LeftAndMainCMSThreeStepWorkflow extends LeftAndMainDecorator {
+class LeftAndMainCMSThreeStepWorkflow extends LeftAndMainExtension {
 	
 	public static $allowed_actions = array(
 		'cms_publish',

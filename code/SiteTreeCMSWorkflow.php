@@ -8,7 +8,7 @@
  *
  * @package cmsworkflow
  */
-class SiteTreeCMSWorkflow extends DataObjectDecorator {
+class SiteTreeCMSWorkflow extends DataExtension {
 	
 	/**
 	 * A registry of all allowed request classes.
@@ -45,7 +45,7 @@ class SiteTreeCMSWorkflow extends DataObjectDecorator {
 		}
 	}
 	
-	function extraStatics() {
+	function extraStatics($class = null, $extension = null) {
 		return array(
 			'db' => array(
 				"ExpiryDate" => "SS_Datetime",
@@ -172,7 +172,7 @@ class SiteTreeCMSWorkflow extends DataObjectDecorator {
 		DB::query('UPDATE "SiteTree_Live" SET "ExpiryDate" = \'0000-00-00 00:00:00\' WHERE "ID" = '.$this->owner->ID);
 	}
 	
-	public function updateCMSFields(&$fields) {
+	function updateCMSFields(FieldList $fields) {
 		if($wf = $this->openWorkflowRequest()) {
 			$fields->fieldByName('Root')->insertBefore(new Tab("Workflow",
 				new LiteralField("WorkflowInfo", $this->owner->renderWith("SiteTreeCMSWorkflow_workflowtab"))
@@ -260,7 +260,7 @@ class SiteTreeCMSWorkflow extends DataObjectDecorator {
 	 * @return FieldSet
 	 */
 	public function getWorkflowCMSFields() {
-		$fields = new FieldSet();
+		$fields = new FieldList();
 		
 		$diffLinkTitle = _t('SiteTreeCMSWorkflow.DIFFERENCESLINK', 'Show differences to live');
 
@@ -270,7 +270,9 @@ class SiteTreeCMSWorkflow extends DataObjectDecorator {
 			_t('SiteTreeCMSWorkflow.CLOSEDREQUESTSHEADER', 'Closed Requests')
 		));
 		$closedRequests = $this->ClosedWorkflowRequests();
-		// $_REQUEST['showqueries']=1;
+		$closedRequestsField = new GridField('ClosedWorkflowRequests', 'Closed workflow requests', $closedRequests);
+
+		/*
 		$closedRequestsTF = new ComplexTableField(
 			$this,
 			'ClosedWorkflowRequests',
@@ -290,8 +292,9 @@ class SiteTreeCMSWorkflow extends DataObjectDecorator {
 			'Created' => 'SS_Datetime->Full'
 		));
 		$closedRequestsTF->setCustomSourceItems($closedRequests);
-		$fields->push($closedRequestsTF);
-		
+		 */
+		$fields->push($closedRequestsField);
+
 		return $fields;
 	}
 	
@@ -303,7 +306,7 @@ class SiteTreeCMSWorkflow extends DataObjectDecorator {
 	 *
 	 * @param FieldSet $actions
 	 */
-	public function updateCMSActions(&$actions) {
+	function updateCMSActions(FieldList $actions) {
 		if(self::$allowed_request_classes) foreach(self::$allowed_request_classes as $class) {
 			// @todo Workaround: calling static method as instance method to avoid eval()
 			singleton($class)->update_cms_actions($actions, $this->owner);

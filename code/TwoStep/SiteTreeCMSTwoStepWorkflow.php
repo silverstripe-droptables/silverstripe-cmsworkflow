@@ -8,7 +8,7 @@
  * @author Tom Rix
  */
 class SiteTreeCMSTwoStepWorkflow extends SiteTreeCMSWFDecorator {
-	public function extraStatics() {
+	function extraStatics($class = null, $extension = null) {
 		return array(
 			'db' => array(
 				"CanPublishType" =>"Enum('LoggedInUsers, OnlyTheseUsers, Inherit', 'Inherit')"
@@ -33,7 +33,7 @@ class SiteTreeCMSTwoStepWorkflow extends SiteTreeCMSWFDecorator {
 	 *
 	 * @return void
 	 */
-	public function updateCMSFields(&$fields) {
+	function updateCMSFields(FieldList $fields) {
 		$fields->addFieldsToTab("Root.Access", array(
 			new HeaderField(_t('SiteTreeCMSWorkflow.PUBLISHHEADER', "Who can publish this inside the CMS?"), 2),
 			$publishTypeField = new OptionsetField(

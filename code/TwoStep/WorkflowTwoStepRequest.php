@@ -259,7 +259,7 @@ class WorkflowTwoStepRequest extends WorkflowRequestDecorator {
 		return WorkflowRequest::get_by_author($class, $author, $status);
 	}
 	
-	public static function get($class, $status = null) {
-		return WorkflowRequest::get($class, $status);
+	public static function get_by_status($class, $status = null) {
+		return WorkflowRequest::get_by_status($class, $status);
 	}
 }

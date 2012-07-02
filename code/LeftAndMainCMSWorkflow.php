@@ -1,5 +1,5 @@
 <?php
-class LeftAndMainCMSWorkflow extends LeftAndMainDecorator {
+class LeftAndMainCMSWorkflow extends LeftAndMainExtension {
 	private static $prompt_admin_for_comments = true;
 	
 	public static $allowed_actions = array(
